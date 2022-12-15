@@ -1,4 +1,4 @@
-public class Element implements Operations{
+public class Element{
     private double value;
     Element(double initial)
     {
@@ -6,22 +6,6 @@ public class Element implements Operations{
     }
     Element(){
         this.value=0;
-    }
-    public Element addition(double add)
-    {
-        return new Element(this.value+add);
-    }
-    public Element substraction(double sub)
-    {
-        return new Element(this.value-sub);
-    }
-    public Element multiplication(double mul)
-    {
-        return new Element(this.value*mul);
-    }
-    public Element division(double div)
-    {
-        return new Element(this.value/div);
     }
     public Element newValue(double val)
     {

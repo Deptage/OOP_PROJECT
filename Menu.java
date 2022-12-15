@@ -1,4 +1,3 @@
-import java.lang.reflect.Executable;
 import java.lang.reflect.InaccessibleObjectException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,10 +6,49 @@ public class Menu {
     private ArrayList<Matrix> matrices=new ArrayList<>();//moze gdzies przeniesc
     private Scanner cin=new Scanner(System.in);
     private UI dialogue = new UI();
+    public void insertAMatrix(Matrix m1)
+    {
+        matrices.add(m1);
+        System.out.println("Your matrix has been added to the memory");
+        matrices.get(matrices.size()-1).show();
+    }
+    public boolean ifMatricesEmpty()
+    {
+        boolean flag=true;
+        try {
+            if (matrices.isEmpty()) {
+                flag=true;
+                throw new InaccessibleObjectException("There are no matrices stored in memory!");
+            }
+            else flag=false;
+        }
+        catch(Exception ex1)
+        {
+            System.out.println(ex1.getMessage());
+        }
+        return flag;
+    }
+    public boolean indexOutOfRange(int id)
+    {
+        boolean flag=true;
+        try{
+            if(matrices.size()<id||id<0)
+            {
+                flag=true;
+                throw new IllegalAccessException("Index is out of range!");
+            }
+            else flag=false;
+        }
+        catch(Exception ex1)
+        {
+            System.out.println(ex1.getMessage());
+        }
+        return flag;
+
+    }
     public void Menu()
     {
         dialogue.printUI();
-        Scanner cin=new Scanner(System.in);
         int input=cin.nextInt();
         switch(input)
         {
@@ -28,6 +66,15 @@ public class Menu {
                 break;
             case 5:
                 this.subtractMatrices();
+                break;
+            case 6:
+                this.multiplyMatrices();
+                break;
+            case 7:
+                this.transposeAMatrix();
+                break;
+            case 8:
+                this.multiplyByANumber();
                 break;
             case 9:
                 System.exit(0);
@@ -61,7 +108,6 @@ public class Menu {
                 Matrix mat=new Matrix(m,n,tab2);
                 matrices.add(mat);
                 System.out.println("Your matrix has been added to the memory");
-                //matrices.get(0).show();
             }
         }
         catch(IllegalArgumentException ex1)
@@ -69,7 +115,6 @@ public class Menu {
             System.out.println(ex1.getMessage());//a getter, but I can't do anything about it ;(
             this.createAMatrixMenu();
         }
-        //this.Menu();
     }
     public void displayMatrices()
     {
@@ -92,7 +137,6 @@ public class Menu {
         {
             System.out.println(ex2.getMessage());
         }
-        //this.Menu();
     }
     public void deleteAMatrixMenu()
     {
@@ -122,7 +166,6 @@ public class Menu {
         {
             System.out.println(ex1.getMessage());
         }
-        //this.Menu();
     }
     public void addMatrices()
     {
@@ -184,6 +227,59 @@ public class Menu {
         catch(Exception ex1)
         {
             System.out.println(ex1.getMessage());
+        }
+    }
+    public void multiplyMatrices()
+    {
+        int id1,id2;
+        boolean fl1=ifMatricesEmpty();
+        if(!fl1)
+        {
+            System.out.println("Input the index of the matrix you want to multiply");
+            id1=cin.nextInt();
+            System.out.println("input the index of the matrix you want to multiply by");
+            id2= cin.nextInt();
+            fl1=indexOutOfRange(id1)||indexOutOfRange(id2);
+            if(!fl1)
+            {
+                Matrix newMatrix = new Matrix(matrices.get(id1),matrices.get(id2));
+                insertAMatrix(newMatrix);
+            }
+        }
+    }
+    public void transposeAMatrix()
+    {
+        int id1;
+        boolean fl1=ifMatricesEmpty();
+        if(!fl1)
+        {
+            System.out.println("Input the index of the matrix you want to transpose:");
+            id1=cin.nextInt();
+            fl1=indexOutOfRange(id1);
+            if(!fl1)
+            {
+                Matrix newMatrix= new Matrix(matrices.get(id1));
+                insertAMatrix(newMatrix);
+            }
+        }
+    }
+    public void multiplyByANumber()
+    {
+        int id1;
+        double number;
+        boolean fl1=ifMatricesEmpty();
+        if(!fl1)
+        {
+            System.out.println("Input the index of the matrix you want to multiply:");
+            id1=cin.nextInt();
+            fl1=indexOutOfRange(id1);
+            if(!fl1)
+            {
+                System.out.println("Input the number");
+                number=cin.nextDouble();
+                Matrix newMatrix= new Matrix(matrices.get(id1),number);
+                insertAMatrix(newMatrix);
+            }
         }
     }
 }

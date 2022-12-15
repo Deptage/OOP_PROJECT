@@ -4,6 +4,5 @@ public interface Operations {
     Operations substraction(double sub);
     Operations multiplication(double mul);
     Operations division(double div);
-    double pvalue();
 
 }

@@ -95,4 +95,18 @@ public class Matrix{
             }
         }
     }
+    Matrix(Matrix m1, double number)
+    {
+        //multiplying matrix by a number
+        this.numberOfRows=m1.numberOfColumns();
+        this.numberOfColumns=m1.numberOfRows();
+        this.elements=new Element[numberOfRows][numberOfColumns];
+        for(int i=0; i<m1.numberOfRows(); i++)
+        {
+            for(int j = 0; j<m1.numberOfColumns(); j++)
+            {
+                elements[i][j]=new Element(m1.elements[i][j].pvalue()*number);
+            }
+        }
+    }
 }
