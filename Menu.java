@@ -4,25 +4,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
-    ArrayList<Matrix> matrices=new ArrayList<>();//moze gdzies przeniesc
+    private ArrayList<Matrix> matrices=new ArrayList<>();//moze gdzies przeniesc
+    private Scanner cin=new Scanner(System.in);
+    private UI dialogue = new UI();
     public void Menu()
     {
-        System.out.println("===========================================================");
-        System.out.println("                           MENU                            ");
-        System.out.println("1. Create a new matrix");
-        System.out.println("2. Delete a matrix from memory");
-        System.out.println("3. Print all stored matrices");
-        System.out.println("------------------------------------");
-        System.out.println("4. Add selected matrices");//musza byc takiego samego rozmiaru
-        System.out.println("5. Subtract selected matrices");//musza byc takiego samego rozmiaru
-        System.out.println("6. Multiply selected matrices");//n i m musza byc tego samego rozmiaru xdxd
-        System.out.println("7. Transpose a matrix");
-        System.out.println("8. Multiply a matrix by a number");
-        System.out.println("9. Find a reverse matrix");//bedzie mozna usunac, raczej trzeba bedzie
-        System.out.println("------------------------------------");
-        System.out.println("10. Exit");
-        System.out.println("------------------------------------");
-        System.out.println("Your choice (input an integer):");
+        dialogue.printUI();
         Scanner cin=new Scanner(System.in);
         int input=cin.nextInt();
         switch(input)
@@ -36,7 +23,13 @@ public class Menu {
             case 3:
                 this.displayMatrices();
                 break;
-            case 10:
+            case 4:
+                this.addMatrices();
+                break;
+            case 5:
+                this.subtractMatrices();
+                break;
+            case 9:
                 System.exit(0);
                 break;
         }
@@ -45,7 +38,6 @@ public class Menu {
     public void createAMatrixMenu()
     {
         try{
-            Scanner cin=new Scanner(System.in);
             System.out.println("Input number of rows for the new matrix");
             int m=cin.nextInt();
             System.out.println("Input number of columns for the new matrix");
@@ -111,7 +103,6 @@ public class Menu {
             else
             {
                 System.out.println("Input an index of a matrix you want to delete!:");
-                Scanner cin=new Scanner(System.in);
                 int id=cin.nextInt();
                 try{
                     if(id>matrices.size()||id<0) throw new IllegalArgumentException("Wrong index!");
@@ -132,5 +123,67 @@ public class Menu {
             System.out.println(ex1.getMessage());
         }
         //this.Menu();
+    }
+    public void addMatrices()
+    {
+        int id1,id2;
+        System.out.println("Input the index of the matrix you want to add to:");
+        id1=cin.nextInt();
+        System.out.println("Input the index of the matrix you want to add:");
+        id2=cin.nextInt();
+        try{
+            if(id1>matrices.size()||id1<0||id2>matrices.size()||id2<0) throw new IllegalArgumentException("Wrong index!");
+            else
+            {
+                if(matrices.get(id1).numberOfRows()!=matrices.get(id2).numberOfRows())
+                {
+                    System.out.println("Impossible to add.");
+                }
+                else if(matrices.get(id1).numberOfColumns()!=matrices.get(id2).numberOfColumns())
+                {
+                    System.out.println("Impossible to add.");
+                }
+                else {
+                    Matrix newMatrix=matrices.get(id1).addToThisMatrix(matrices.get(id2));
+                    matrices.add(newMatrix);
+                    newMatrix.show();
+                }
+            }
+        }
+        catch(Exception ex1)
+        {
+            System.out.println(ex1.getMessage());
+        }
+    }
+    public void subtractMatrices()
+    {
+        int id1,id2;
+        System.out.println("Input the index of the matrix you want to subtract from:");
+        id1=cin.nextInt();
+        System.out.println("Input the index of the matrix you want to subtract:");
+        id2=cin.nextInt();
+        try{
+            if(id1>matrices.size()||id1<0||id2>matrices.size()||id2<0) throw new IllegalArgumentException("Wrong index!");
+            else
+            {
+                if(matrices.get(id1).numberOfRows()!=matrices.get(id2).numberOfRows())
+                {
+                    System.out.println("Impossible to subtract.");
+                }
+                else if(matrices.get(id1).numberOfColumns()!=matrices.get(id2).numberOfColumns())
+                {
+                    System.out.println("Impossible to subtract.");
+                }
+                else {
+                    Matrix newMatrix=matrices.get(id1).subtractFromThisMatrix(matrices.get(id2));
+                    matrices.add(newMatrix);
+                    newMatrix.show();
+                }
+            }
+        }
+        catch(Exception ex1)
+        {
+            System.out.println(ex1.getMessage());
+        }
     }
 }

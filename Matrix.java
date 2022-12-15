@@ -32,19 +32,67 @@ public class Matrix{
             System.out.println();
         }
     }
-
-    /*Matrix inputElements(int[][] tab, int m, int n)
+    public int numberOfRows()
     {
-        Matrix newMatrix = new Matrix(m,n);
-        Element temp = new Element();
-        for(int i = 0; i<m; i++)
+        return numberOfRows;
+    }
+    public int numberOfColumns()
+    {
+        return numberOfColumns;
+    }
+    Matrix addToThisMatrix(Matrix m2)
+    {
+        Matrix tempMatrix=new Matrix(this.numberOfRows,this.numberOfColumns);
+        for(int i = 0; i<this.numberOfRows; i++)
         {
-            for(int j = 0; j<n; j++)
+            for(int j=0; j<this.numberOfColumns;j++)
             {
-                temp.newValue(tab[i][j]);
-                newMatrix
+                tempMatrix.elements[i][j]=new Element(this.elements[i][j].pvalue()+m2.elements[i][j].pvalue());
             }
         }
-    }*/
-
+        return tempMatrix;
+    }
+    Matrix subtractFromThisMatrix(Matrix m2)
+    {
+        Matrix tempMatrix=new Matrix(this.numberOfRows,this.numberOfColumns);
+        for(int i = 0; i<this.numberOfRows; i++)
+        {
+            for(int j=0; j<this.numberOfColumns;j++)
+            {
+                tempMatrix.elements[i][j]=new Element(this.elements[i][j].pvalue()-m2.elements[i][j].pvalue());
+            }
+        }
+        return tempMatrix;
+    }
+    Matrix(Matrix m1, Matrix m2)//to multiply matrices
+    {
+        this.numberOfRows=m1.numberOfRows();
+        this.numberOfColumns=m2.numberOfColumns();
+        this.elements=new Element[numberOfRows][numberOfColumns];
+        for(int i = 0; i<this.numberOfRows; i++)
+        {
+            for(int j = 0; j<this.numberOfColumns; j++)
+            {
+                int tempsum=0;
+                for(int k = 0; k<m2.numberOfRows();k++)
+                {
+                    tempsum+=m1.elements[i][k].pvalue()*m2.elements[k][j].pvalue();
+                }
+                this.elements[i][j]=new Element(tempsum);
+            }
+        }
+    }
+    Matrix(Matrix m1)//transposing a matrix
+    {
+        this.numberOfRows=m1.numberOfColumns();
+        this.numberOfColumns=m1.numberOfRows();
+        this.elements=new Element[numberOfRows][numberOfColumns];
+        for(int i = 0; i<m1.numberOfRows();i++)
+        {
+            for(int j = 0; j<m1.numberOfColumns(); j++)
+            {
+                elements[j][i]=new Element(m1.elements[i][j].pvalue());
+            }
+        }
+    }
 }
