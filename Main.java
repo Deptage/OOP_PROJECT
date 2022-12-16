@@ -11,5 +11,4 @@ public class Main {
         userMemory.insertAMatrix(ex1.secondExampleMatrix());
         userMemory.showMenu();
     }
-
 }
