@@ -1,8 +1,8 @@
 public interface Operations {
-    //addition, substraction, multiplications, looking for an inverse matrix
-    Operations addition(double add);
-    Operations substraction(double sub);
-    Operations multiplication(double mul);
-    Operations division(double div);
-
+    //this interface is implemented by the Matrix class
+    //addition, subtraction are methods
+    //multiplication, transposition are handled by constructors in Matrix class
+    void show();
+    Operations addToThisMatrix(Matrix m1);
+    Operations subtractFromThisMatrix(Matrix m2);
 }
