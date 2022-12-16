@@ -33,14 +33,13 @@ public class Menu implements MenuFunctions{
         //checking if index of an object exists
         boolean flag = true;
         try {
-            if (matrices.size() < id || id < 0) {
+            if (((matrices.size()-1) < id) || id < 0) {
                 throw new IllegalAccessException("Index is out of range!");
             } else flag = false;
         } catch (Exception ex1) {
             System.out.println(ex1.getMessage());
         }
         return flag;
-
     }
     @Override
     public void showMenu() {
@@ -100,7 +99,7 @@ public class Menu implements MenuFunctions{
         if (!ifMatricesEmpty()) {
             System.out.println("Input an index of a matrix you want to delete!:");
             int id = cin.nextInt();
-            if (indexOutOfRange(id)) {
+            if (!indexOutOfRange(id)) {
                 matrices.remove(id);
                 System.out.println("Your matrix has been deleted.");
             }
