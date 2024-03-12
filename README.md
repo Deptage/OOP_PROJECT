@@ -1,2 +1,1 @@
-# OOP_PROJECT
-Project for OOP class
+MatrixAlmostExpert - a program to perform various operations on matrices. Created by Zuzanna Ławniczak, PUT CS student.
